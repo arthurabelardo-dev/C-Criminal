@@ -52,5 +52,77 @@ O jogo é baseado em investigação criminal, onde:
 
 ### Compilação
 
-```bash
+bash
 gcc main.c -o jogo
+
+
+### Execução
+
+bash
+./jogo
+
+
+---
+
+## Estrutura do Projeto (sugestão)
+
+
+/projeto
+ ├── main.c
+ ├── jogo.c
+ ├── jogo.h
+ ├── stats.c
+ ├── stats.h
+ ├── historico.txt
+ └── README.md
+
+
+---
+
+## Conceitos Utilizados
+
+* Estruturas de repetição
+* Funções
+* Manipulação de arquivos
+* Números aleatórios
+* Recursão
+* Estatística básica
+
+---
+
+## Exemplo de Saída
+
+
+Caso iniciado...
+Digite um número: 50
+A evidência indica que o número é menor...
+
+Digite um número: 25
+Muito baixo...
+
+Caso resolvido!
+Tentativas: 5
+Pontuação: 120
+
+
+---
+
+## Melhorias Futuras
+
+* Ranking de jogadores
+* Interface gráfica
+* Modo multiplayer
+* Inteligência adaptativa
+
+---
+
+## Integrantes
+
+* Nome 1
+* Nome 2
+
+---
+
+## Observação
+
+Projeto desenvolvido para fins acadêmicos, com foco no aprendizado de lógica de programação e análise de dados.
