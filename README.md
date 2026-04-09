@@ -118,11 +118,11 @@ Pontuação: 120
 
 ## Integrantes
 
-* Alisson Santana
-* Arthur Abelardo
-* Carlos Henrique
-* Danilo Diniz
-* Gabriel Gomes
+* Alisson Santana - Lider Técnico
+* Arthur Abelardo - QA
+* Carlos Henrique - DEV
+* Danilo Diniz - P.O
+* Gabriel Gomes - DEv
   
 
 ---
