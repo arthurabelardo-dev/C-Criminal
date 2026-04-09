@@ -118,8 +118,12 @@ Pontuação: 120
 
 ## Integrantes
 
-* Nome 1
-* Nome 2
+* Alisson Santana
+* Arthur Abelardo
+* Carlos Henrique
+* Danilo Diniz
+* Gabriel Gomes
+  
 
 ---
 
