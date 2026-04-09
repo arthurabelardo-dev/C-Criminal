@@ -10,11 +10,11 @@ O jogo vai além da mecânica tradicional, incorporando análise de desempenho e
 
 ## Objetivo
 
-- Desenvolver um jogo interativo em C
-- Aplicar conceitos de lógica de programação
-- Utilizar arquivos para persistência de dados
-- Implementar análise estatística básica
-- Explorar o uso de recursão
+* Desenvolver um jogo interativo em C
+* Aplicar conceitos de lógica de programação
+* Utilizar arquivos para persistência de dados
+* Implementar análise estatística básica
+* Explorar o uso de recursão
 
 ---
 
@@ -22,19 +22,19 @@ O jogo vai além da mecânica tradicional, incorporando análise de desempenho e
 
 ### Jogabilidade
 
-- Geração de número aleatório
-- Sistema de tentativas com feedback (maior/menor)
-- Níveis de dificuldade (casos)
-- Interface no terminal com cores
-- Sistema de pontuação
+* Geração de número aleatório
+* Sistema de tentativas com feedback (maior/menor)
+* Níveis de dificuldade (casos)
+* Interface no terminal com cores
+* Sistema de pontuação
 
 ### Análise de Dados
 
-- Registro de partidas em arquivo
-- Cálculo de média de tentativas
-- Melhor e pior desempenho
-- Cálculo de desvio padrão (recursivo)
-- Sugestões estratégicas ao jogador
+* Registro de partidas em arquivo
+* Cálculo de média de tentativas
+* Melhor e pior desempenho
+* Cálculo de desvio padrão (recursivo)
+* Sugestões estratégicas ao jogador
 
 ---
 
@@ -42,9 +42,9 @@ O jogo vai além da mecânica tradicional, incorporando análise de desempenho e
 
 O jogo é baseado em investigação criminal, onde:
 
-- Cada partida é um “caso”
-- Cada tentativa representa uma análise de evidência
-- O objetivo é “resolver o caso” com eficiência
+* Cada partida é um “caso”
+* Cada tentativa representa uma análise de evidência
+* O objetivo é “resolver o caso” com eficiência
 
 ---
 
