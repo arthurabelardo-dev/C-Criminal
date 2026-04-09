@@ -10,11 +10,11 @@ O jogo vai além da mecânica tradicional, incorporando análise de desempenho e
 
 ## Objetivo
 
-* Desenvolver um jogo interativo em C
-* Aplicar conceitos de lógica de programação
-* Utilizar arquivos para persistência de dados
-* Implementar análise estatística básica
-* Explorar o uso de recursão
+- Desenvolver um jogo interativo em C
+- Aplicar conceitos de lógica de programação
+- Utilizar arquivos para persistência de dados
+- Implementar análise estatística básica
+- Explorar o uso de recursão
 
 ---
 
@@ -22,19 +22,19 @@ O jogo vai além da mecânica tradicional, incorporando análise de desempenho e
 
 ### Jogabilidade
 
-* Geração de número aleatório
-* Sistema de tentativas com feedback (maior/menor)
-* Níveis de dificuldade (casos)
-* Interface no terminal com cores
-* Sistema de pontuação
+- Geração de número aleatório
+- Sistema de tentativas com feedback (maior/menor)
+- Níveis de dificuldade (casos)
+- Interface no terminal com cores
+- Sistema de pontuação
 
 ### Análise de Dados
 
-* Registro de partidas em arquivo
-* Cálculo de média de tentativas
-* Melhor e pior desempenho
-* Cálculo de desvio padrão (recursivo)
-* Sugestões estratégicas ao jogador
+- Registro de partidas em arquivo
+- Cálculo de média de tentativas
+- Melhor e pior desempenho
+- Cálculo de desvio padrão (recursivo)
+- Sugestões estratégicas ao jogador
 
 ---
 
@@ -42,9 +42,9 @@ O jogo vai além da mecânica tradicional, incorporando análise de desempenho e
 
 O jogo é baseado em investigação criminal, onde:
 
-* Cada partida é um “caso”
-* Cada tentativa representa uma análise de evidência
-* O objetivo é “resolver o caso” com eficiência
+- Cada partida é um “caso”
+- Cada tentativa representa uma análise de evidência
+- O objetivo é “resolver o caso” com eficiência
 
 ---
 
@@ -52,77 +52,5 @@ O jogo é baseado em investigação criminal, onde:
 
 ### Compilação
 
-bash
+```bash
 gcc main.c -o jogo
-
-
-### Execução
-
-bash
-./jogo
-
-
----
-
-## Estrutura do Projeto (sugestão)
-
-
-/projeto
- ├── main.c
- ├── jogo.c
- ├── jogo.h
- ├── stats.c
- ├── stats.h
- ├── historico.txt
- └── README.md
-
-
----
-
-## Conceitos Utilizados
-
-* Estruturas de repetição
-* Funções
-* Manipulação de arquivos
-* Números aleatórios
-* Recursão
-* Estatística básica
-
----
-
-## Exemplo de Saída
-
-
-Caso iniciado...
-Digite um número: 50
-A evidência indica que o número é menor...
-
-Digite um número: 25
-Muito baixo...
-
-Caso resolvido!
-Tentativas: 5
-Pontuação: 120
-
-
----
-
-## Melhorias Futuras
-
-* Ranking de jogadores
-* Interface gráfica
-* Modo multiplayer
-* Inteligência adaptativa
-
----
-
-## Integrantes
-
-* Nome 1
-* Nome 2
-
----
-
-## Observação
-
-Projeto desenvolvido para fins acadêmicos, com foco no aprendizado de lógica de programação e análise de dados.
