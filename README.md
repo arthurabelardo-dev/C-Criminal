@@ -1,11 +1,11 @@
-# 🕵️‍♂️ Investigação Criminal: C-Criminal
+# Investigação Criminal: C-Criminal
 
 ![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)
 ![Agile](https://img.shields.io/badge/Metodologia-Scrum%20%2F%20Kanban-27ae60?style=for-the-badge)
 
 Este projeto transcende um simples "jogo de adivinhação" no terminal. Trata-se de um **Simulador de Investigação Criminal e Motor de Análise Preditiva**, desenvolvido inteiramente em Linguagem C. O sistema é dividido em duas grandes frentes operacionais: a simulação interativa de coleta de evidências e um *Pipeline* de Dados Analítico capaz de traçar o perfil comportamental do jogador.
 
-## 🚀 Diferenciais Técnicos (Engenharia de Software e Dados)
+## Diferenciais Técnicos (Engenharia de Software e Dados)
 
 Não construímos apenas um jogo, construímos um sistema transacional com inteligência aplicada:
 * **Filtro Anti-Quebra (Mini-ETL):** Tratamento de dados na leitura do histórico. Se o arquivo TXT for adulterado, o sistema ignora a linha corrompida em vez de quebrar a execução.
@@ -15,7 +15,7 @@ Não construímos apenas um jogo, construímos um sistema transacional com intel
 
 ---
 
-## 👥 Equipe e Papéis (Scrum)
+## Equipe e Papéis (Scrum)
 
 Nossa equipe (5 pessoas) foi dividida estrategicamente para garantir entregas de valor contínuo:
 
@@ -27,7 +27,7 @@ Nossa equipe (5 pessoas) foi dividida estrategicamente para garantir entregas de
 
 ---
 
-## 🎯 Organização e Metodologia Ágil (Entrega 01)
+## Organização e Metodologia Ágil (Entrega 01)
 
 O desenvolvimento segue práticas de metodologias ágeis, organizando o escopo em **2 Grandes Épicos**:
 * **Épico 1: Sistema de Investigação e Jogabilidade (Transacional)**
@@ -43,7 +43,7 @@ A priorização das histórias obedece a uma lógica de dependência arquitetura
 
 ---
 
-## 🖼️ Evidências de Planejamento (Board Ágil)
+## Evidências de Planejamento (Board Ágil)
 
 Abaixo estão os registros do nosso Quadro Kanban e do Backlog Priorizado, demonstrando o planejamento das *Histórias do Usuário* para as Sprints de desenvolvimento.
 
@@ -57,7 +57,7 @@ Abaixo estão os registros do nosso Quadro Kanban e do Backlog Priorizado, demon
 
 ---
 
-## ⚙️ Como Executar o Projeto
+## Como Executar o Projeto
 
 1. Clone o repositório:
 ```bash
