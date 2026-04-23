@@ -90,7 +90,7 @@ Toda a gestão de tarefas, Sprints e divisão de responsabilidades foi orquestra
 * **[Acessar Board Público no Jira](https://cesar-team-xjfwas8s.atlassian.net/jira/software/projects/SCRUM/boards/1)**
 
 > **Visão do Quadro Kanban** <br>
-> *O fluxo de trabalho estruturado nas colunas: Backlog, A Fazer, Fazendo, Design, Revisão de Código e Concluído.*
+> *O fluxo de trabalho estruturado nas colunas: Tarefas Pendentes, Em Andamento, Code Review, Homologação, Pré-implementação e Concluído.*
 > 
 > <img src="./imagens/print-quadro.png" alt="Print do Quadro Kanban" width="800">
 
