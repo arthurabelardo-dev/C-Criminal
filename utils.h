@@ -1,0 +1,20 @@
+#ifndef UTILS_H
+#define UTILS_H
+
+#define VERMELHO  "\033[1;31m"
+#define AMARELO   "\033[1;33m"
+#define VERDE     "\033[1;32m"
+#define CIANO     "\033[1;36m"
+#define RESET     "\033[0m"
+
+#ifdef _WIN32
+  #define CLEAR "cls"
+#else
+  #define CLEAR "clear"
+#endif
+
+void limpar_tela(void);
+void pausar(void);
+int  ler_opcao(int min, int max);
+
+#endif
