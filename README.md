@@ -45,6 +45,11 @@ O jogo é baseado em investigação criminal, onde:
 * Cada partida é um “caso”
 * Cada tentativa representa uma análise de evidência
 * O objetivo é “resolver o caso” com eficiência
+1. **Alisson Santana - Líder Técnico & Integração:** Tech Lead. Responsável pela arquitetura, integração dos módulos e revisão de código.
+2. **Danilo Diniz - Desenvolvedor(a) de Lógica:** Desenvolvedor. Foco no núcleo do jogo (lógica de tentativas, validação de entrada, geração do número).
+3. **Gabriel Andrade - Designer de UX & Narrativa:** Desenvolvedor. Foco na persistência (salvar e carregar o histórico em arquivo).
+4. **Carlos Henrique - Engenheiro(a) de Dados:** Product Owner. Responsável por garantir que o produto faz sentido, priorizar o backlog e manter o grupo alinhado com o que precisa ser entregue.
+5. **Arthur Abelardo - Analista de Estatística:** Desenvolvedor. Foco nos algoritmos de análise (desvio padrão, viés, dossiê).
 
 ---
 
