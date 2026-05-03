@@ -76,7 +76,7 @@ Para garantir a qualidade técnica e visual antes da codificação, documentamos
 Desenvolvemos a fidelidade visual e a jornada de interação do usuário utilizando o Figma.
 * **[Acessar Protótipo Interativo no Figma](https://www.figma.com/make/Qeu9UfYyMf8QrbvotMCLWp/Sem-t%C3%ADtulo?p=f&fullscreen=1)**
 * **Demonstração do Protótipo:**
-*(Para visualizar o vídeo de demonstração, [clique aqui e baixe o arquivo de vídeo](./video/demonstracao-prototipo.mp4) ou assista diretamente no [link do vídeo no youtube](https://youtu.be/zq3WFZ6LRZw?si=vvPPmwpWL8_6_A4W).*
+*(Para visualizar o vídeo de demonstração, [clique aqui e baixe o arquivo de vídeo](./assets/video/demonstracao-prototipo.mp4) ou assista diretamente no [link do vídeo no youtube](https://youtu.be/zq3WFZ6LRZw?si=vvPPmwpWL8_6_A4W).)*
 
 ### Fluxo Lógico e Processos
 O comportamento das Histórias de Usuário foi mapeado previamente para garantir que a lógica em C cobriria todos os caminhos felizes e tratamentos de erro.
@@ -92,12 +92,12 @@ Toda a gestão de tarefas, Sprints e divisão de responsabilidades foi orquestra
 > **Visão do Quadro Kanban** <br>
 > *O fluxo de trabalho estruturado nas colunas: Tarefas Pendentes, Em Andamento, Code Review, Homologação, Pré-implementação e Concluído.*
 > 
-> <img src="./imagens/print-quadro.png" alt="Print do Quadro Kanban" width="800">
+> <img src="./assets/imagens/print-quadro.png" alt="Print do Quadro Kanban" width="800">
 
 > **Visão do Backlog Priorizado** <br>
 > *As 12 histórias ordenadas e divididas por responsável para a Sprint 01.*
 > 
-> <img src="./imagens/print-backlog.png" alt="Print do Backlog Priorizado" width="800">
+> <img src="./assets/imagens/print-backlog.png" alt="Print do Backlog Priorizado" width="800">
 
 ---
 
