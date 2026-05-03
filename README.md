@@ -36,11 +36,11 @@ O jogo possui três níveis de complexidade, cada um com sua própria história,
 
 Nossa equipe (5 pessoas) foi dividida estrategicamente para garantir entregas de valor contínuo:
 
-1. **Alisson Santana - Líder Técnico & Integração:** Tech Lead. Responsável pela arquitetura, integração dos módulos e revisão de código.
-2. **Danilo Diniz - Desenvolvedor(a) de Lógica:** Desenvolvedor. Foco no núcleo do jogo (lógica de tentativas, validação de entrada, geração do número).
-3. **Gabriel Andrade - Designer de UX & Narrativa:** Desenvolvedor. Foco na persistência (salvar e carregar o histórico em arquivo).
-4. **Carlos Henrique - Engenheiro(a) de Dados:** Product Owner. Responsável por garantir que o produto faz sentido, priorizar o backlog e manter o grupo alinhado com o que precisa ser entregue.
-5. **Arthur Abelardo - Analista de Estatística:** Desenvolvedor. Foco nos algoritmos de análise (desvio padrão, viés, dossiê).
+1. **Alisson Santana - Líder Técnico & Integração:** Responsável pela arquitetura principal, controle de fluxo do jogo e integração dos módulos (Épicos 1 e 2).
+2. **Danilo Diniz - Desenvolvedor(a) de Lógica:** Foco no núcleo transacional (Geração de chaves criptográficas com `rand()`, validações de input e sistema de tentativas).
+3. **Gabriel Andrade - Designer de UX & Narrativa:** Responsável pela imersão no terminal (Cores ANSI Escapes, limpeza de tela dinâmica, roteiro dos casos criminais e pistas temáticas).
+4. **Carlos Henrique - Engenheiro(a) de Dados:** Responsável pela persistência e arquitetura de arquivos (TXT), salvamento automático de sessões e estruturação de dados na memória (`structs`).
+5. **Arthur Abelardo - Analista de Estatística:** Responsável pelos algoritmos complexos, implementação da recursividade, análise de viés e consolidação do Dossiê do investigador.
 
 ---
 
