@@ -1,7 +1,7 @@
 CC     = gcc
-CFLAGS = -Wall -std=c11
+CFLAGS = -Wall -std=c11 -I./include
 TARGET = ccriminal
-SRC    = main.c jogo.c historico.c utils.c
+SRC    = src/main.c src/jogo.c src/historico.c src/utils.c
 
 all:
 	$(CC) $(CFLAGS) $(SRC) -o $(TARGET)

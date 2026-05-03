@@ -12,10 +12,10 @@ typedef struct {
     char dificuldade[10];
 } Caso;
 
-void jogar_partida(void);
+void jogar_partida(int id_caso);
+
 int  validar_palpite(int min, int max);
 void dar_feedback(Caso c, int palpite, int secreto);
-
 void exibir_cabecalho(Caso c, int tentativas_restantes);
 char *classificar_pontuacao(int pontos);
 
