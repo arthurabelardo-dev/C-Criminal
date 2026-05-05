@@ -5,12 +5,12 @@
 #include "historico.h"
 #include "utils.h"
 
-void exibir_relatorio(int id_caso) {
-    limpar_tela();
+static void exibirRelatorio(int idCaso) {
+    limparTela();
     printf("\n");
-    printf(VERMELHO "  CASO %02d: ", id_caso);
+    printf(VERMELHO "  CASO %02d: ", idCaso);
     
-    if (id_caso == 1) {
+    if (idCaso == 1) {
         printf("O ULTIMO SUSPIRO DO MAGNATA\n\n" RESET);
         printf("  Dificuldade: Facil\n");
         printf("  Tentativas disponiveis: 7\n\n");
@@ -29,7 +29,7 @@ void exibir_relatorio(int id_caso) {
         printf("  o cofre. Se falhar apos 7 tentativas, o sistema travara\n");
         printf("  permanentemente e a trilha do assassino ficara fria para sempre.\"\n");
     } 
-    else if (id_caso == 2) {
+    else if (idCaso == 2) {
         printf("FREQUENCIA DE FUGA NO CASSINO\n\n" RESET);
         printf("  Dificuldade: Medio | Tentativas: 6 | Intervalo: 1 a 100\n");
         printf("  A MISSAO: Intercepte a frequencia de radio da gangue.\n");
@@ -43,34 +43,40 @@ void exibir_relatorio(int id_caso) {
     printf("\n  " VERDE "[Pressione ENTER para iniciar a investigacao]" RESET);
     getchar();
     
-    limpar_tela();
+    limparTela();
     printf("\n  Caso carregado. Prepare-se, Detetive.\n");
     printf("\n  " VERDE "[Pressione ENTER para comecar]" RESET);
     getchar();
 }
 
-void jogar_partida(int id_caso) {
-    exibir_relatorio(id_caso);
+void jogarPartida(int idCaso) {
+    if (idCaso < 1 || idCaso > 3) {
+        printf(VERMELHO "  Erro: id de caso invalido (%d).\n" RESET, idCaso);
+        pausar();
+        return;
+    }
+
+    exibirRelatorio(idCaso);
     
-    int max_val = (id_caso == 1) ? 50 : (id_caso == 2) ? 100 : 200;
-    int max_tentativas = (id_caso == 1) ? 7 : (id_caso == 2) ? 6 : 5;
+    int maxVal = (idCaso == 1) ? 50 : (idCaso == 2) ? 100 : 200;
+    int maxTentativas = (idCaso == 1) ? 7 : (idCaso == 2) ? 6 : 5;
     
-    int secreto = 1 + (rand() % max_val);
-    int tentativas = max_tentativas;
+    int secreto = 1 + (rand() % maxVal);
+    int tentativas = maxTentativas;
     
-    int palpites_dados[10]; 
-    int cont_palpites = 0;
+    int palpitesDados[10]; 
+    int contPalpites = 0;
     char feedback[200] = "Aguardando seu primeiro palpite...";
     
     Sessao s;
-    if (id_caso == 1) {
-        strcpy(s.caso_nome, "O Ultimo Suspiro do Magnata");
+    if (idCaso == 1) {
+        strcpy(s.casoNome, "O Ultimo Suspiro do Magnata");
         strcpy(s.dificuldade, "Facil");
-    } else if (id_caso == 2) {
-        strcpy(s.caso_nome, "Frequencia de Fuga no Cassino");
+    } else if (idCaso == 2) {
+        strcpy(s.casoNome, "Frequencia de Fuga no Cassino");
         strcpy(s.dificuldade, "Medio");
     } else {
-        strcpy(s.caso_nome, "Protocolo Apocalipse");
+        strcpy(s.casoNome, "Protocolo Apocalipse");
         strcpy(s.dificuldade, "Dificil");
     }
     s.secreto = secreto;
@@ -79,20 +85,20 @@ void jogar_partida(int id_caso) {
     int palpite = 0;
 
     while (tentativas > 0) {
-        limpar_tela();
+        limparTela();
         printf("\n");
-        printf(VERMELHO "  INVESTIGACAO ATIVA: CASO 0%d\n" RESET, id_caso);
-        printf(AMARELO "  ! TENTATIVAS RESTANTES: %d/%d\n" RESET, tentativas, max_tentativas);
+        printf(VERMELHO "  INVESTIGACAO ATIVA: CASO 0%d\n" RESET, idCaso);
+        printf(AMARELO "  ! TENTATIVAS RESTANTES: %d/%d\n" RESET, tentativas, maxTentativas);
         printf("  ============================================================\n\n");
         
-        printf(CIANO "  >> Digite o codigo (1 a %d)\n" RESET, max_val);
+        printf(CIANO "  >> Digite o codigo (1 a %d)\n" RESET, maxVal);
         printf(AMARELO "  (Digite 0 para solicitar uma dica do perito)\n\n" RESET);
         
         printf("  FEEDBACK DO SISTEMA:\n");
         printf("  \"%s\"\n\n", feedback);
         printf("  > ");
         
-        palpite = ler_opcao(0, max_val);
+        palpite = lerOpcao(0, maxVal);
 
         if (palpite == 0) {
             if (secreto % 2 == 0) {
@@ -103,8 +109,8 @@ void jogar_partida(int id_caso) {
             continue;
         }
 
-        palpites_dados[cont_palpites] = palpite;
-        cont_palpites++;
+        palpitesDados[contPalpites] = palpite;
+        contPalpites++;
 
         if (palpite == secreto) {
             s.venceu = 1;
@@ -120,15 +126,15 @@ void jogar_partida(int id_caso) {
         
         printf("  ============================================================\n\n");
         printf("  LOG DE TENTATIVAS:\n");
-        for(int i = 0; i < cont_palpites; i++) {
-            printf("  [%d] %d\n", i+1, palpites_dados[i]);
+        for(int i = 0; i < contPalpites; i++) {
+            printf("  [%d] %d\n", i+1, palpitesDados[i]);
         }
         pausar();
     }
 
-    s.tentativas_usadas = cont_palpites;
+    s.tentativasUsadas = contPalpites;
 
-    limpar_tela();
+    limparTela();
     printf("\n  ============================================================\n");
     printf(VERMELHO "                  RESULTADO DA INVESTIGACAO\n\n" RESET);
     
@@ -141,11 +147,11 @@ void jogar_partida(int id_caso) {
     }
 
     printf(CIANO "  --- RELATORIO DE DESEMPENHO ---\n" RESET);
-    printf("  Caso: 0%d\n", id_caso);
-    printf("  Tentativas usadas: %d de %d\n", s.tentativas_usadas, max_tentativas);
+    printf("  Caso: 0%d\n", idCaso);
+    printf("  Tentativas usadas: %d de %d\n", s.tentativasUsadas, maxTentativas);
     
     printf(VERDE "\n  [V] Registro salvo no banco de dados do departamento.\n" RESET);
     
-    salvar_sessao(s);
+    salvarSessao(s);
     pausar();
 }

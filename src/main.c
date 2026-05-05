@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 #include "utils.h"
 #include "jogo.h"
 #include "historico.h"
 
-static void tela_login(void) {
-    limpar_tela();
+static void telaLogin(void) {
+    limparTela();
     printf("\n");
     printf(CIANO "  ============================================================\n" RESET);
     printf("               SISTEMA DE INVESTIGACAO CRIMINAL\n");
@@ -15,13 +16,14 @@ static void tela_login(void) {
     printf("  USUARIO: 1\n\n");
     printf(VERDE "  senha: " RESET);
     
-    char senha_falsa[50];
-    scanf("%s", senha_falsa);
-    while(getchar() != '\n');
+    char senhaFalsa[50];
+    if (fgets(senhaFalsa, sizeof(senhaFalsa), stdin) != NULL) {
+        senhaFalsa[strcspn(senhaFalsa, "\n")] = '\0';
+    }
 }
 
-static void exibir_menu(void) {
-    limpar_tela();
+static void exibirMenu(void) {
+    limparTela();
     printf("\n");
     printf("  ============================================================\n");
     printf(CIANO "             ||||| DETETIVE DO TERMINAL |||||\n" RESET);
@@ -39,20 +41,20 @@ static void exibir_menu(void) {
 
 int main(void) {
     srand(time(NULL)); 
-    tela_login();
+    telaLogin();
 
     int opcao;
     do {
-        exibir_menu();
-        opcao = ler_opcao(1, 5);
+        exibirMenu();
+        opcao = lerOpcao(1, 5);
 
         switch (opcao) {
-            case 1: jogar_partida(1); break;
-            case 2: jogar_partida(2); break;
-            case 3: jogar_partida(3); break;
-            case 4: exibir_historico(); break;
+            case 1: jogarPartida(1); break;
+            case 2: jogarPartida(2); break;
+            case 3: jogarPartida(3); break;
+            case 4: exibirHistorico(); break;
             case 5:
-                limpar_tela();
+                limparTela();
                 printf("\n  Encerrando o sistema...\n\n");
                 printf("  Ate a proxima investigacao, Detetive.\n\n");
                 break;

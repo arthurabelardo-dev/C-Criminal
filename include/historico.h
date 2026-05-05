@@ -2,14 +2,14 @@
 #define HISTORICO_H
 
 typedef struct {
-    char caso_nome[50];
+    char casoNome[50];
     char dificuldade[10];
     int  secreto;
-    int  tentativas_usadas;
+    int  tentativasUsadas;
     int  venceu;
 } Sessao;
 
-void salvar_sessao(Sessao s);
-void exibir_historico(void);
+void salvarSessao(Sessao s);
+void exibirHistorico(void);
 
 #endif
