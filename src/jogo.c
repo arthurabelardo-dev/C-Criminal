@@ -31,13 +31,42 @@ static void exibirRelatorio(int idCaso) {
     } 
     else if (idCaso == 2) {
         printf("FREQUENCIA DE FUGA NO CASSINO\n\n" RESET);
-        printf("  Dificuldade: Medio | Tentativas: 6 | Intervalo: 1 a 100\n");
-        printf("  A MISSAO: Intercepte a frequencia de radio da gangue.\n");
+        printf("  Dificuldade: Medio\n");
+        printf("  Tentativas disponiveis: 6 | Intervalo: 1 a 100\n\n");
+        printf("  RELATORIO DE CAMPO: \"Estamos no meio de um assalto em andamento em\n");
+        printf("  Santo Amaro. Uma gangue de alta tecnologia, liderada por mopretu,\n");
+        printf("  invadiu a central de seguranca e instalou um bloqueador de sinal\n");
+        printf("  potente. Neste exato momento, eles estao no heliponto do predio,\n");
+        printf("  esperando o helicoptero de resgate que chegara em poucos minutos.\n");
+        printf("  Nossas comunicacoes estao cortadas. Para derrubar o bloqueador e\n");
+        printf("  pedir reforcos aereos, voce deve usar o scanner de radio portatil\n");
+        printf("  da policia e sintonizar na frequencia exata que a gangue esta\n");
+        printf("  usando para coordenar a fuga. Nossos tecnicos confirmaram que o\n");
+        printf("  sinal opera em uma faixa de 1 a 100 MHz.\n\n");
+        printf("  A MISSAO: O tempo e o seu pior inimigo. O helicoptero de fuga\n");
+        printf("  pousara em breve. Se voce nao encontrar a frequencia correta em\n");
+        printf("  ate 6 tentativas, o sinal sera criptografado novamente e os\n");
+        printf("  criminosos escaparao com milhoes em diamantes.\"\n");
     } 
     else {
         printf("PROTOCOLO APOCALIPSE\n\n" RESET);
-        printf("  Dificuldade: Dificil | Tentativas: 5 | Intervalo: 1 a 200\n");
-        printf("  A MISSAO: Descubra a porta infectada pelo malware.\n");
+        printf("  Dificuldade: Dificil\n");
+        printf("  Tentativas disponiveis: 5 | Intervalo: 1 a 200\n\n");
+        printf("  RELATORIO DE CAMPO: \"Situacao de emergencia maxima, detetive. O\n");
+        printf("  centro de controle da rede eletrica do Pina foi invadido por um\n");
+        printf("  cyber-terrorista conhecido como 'CH do Pina'. Ele injetou um\n");
+        printf("  malware de autodestruicao que causara um apagao total em todo o\n");
+        printf("  estado em menos de 10 minutos. O virus esta escondido em uma\n");
+        printf("  porta de rede (Port) camuflada dentro do servidor central. O\n");
+        printf("  firewall do sistema foi corrompido, mas o agente Abedalama\n");
+        printf("  conseguiu isolar a ameaca em um range de portas entre 1 e 200.\n");
+        printf("  Cada tentativa errada dispara um pulso de sobrecarga que queima\n");
+        printf("  os fusveis da central.\n\n");
+        printf("  MISSAO: Voce tem apenas 5 tentativas antes que o hardware do\n");
+        printf("  servidor derreta por completo, mergulhando a cidade na escuridao\n");
+        printf("  e causando o caos total. O destino da infraestrutura do estado\n");
+        printf("  esta nas suas maos. Encontre a porta correta e neutralize o\n");
+        printf("  protocolo.\"\n");
     }
     
     printf("\n  " VERDE "[Pressione ENTER para iniciar a investigacao]" RESET);
