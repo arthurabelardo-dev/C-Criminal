@@ -5,6 +5,205 @@
 #include "historico.h"
 #include "utils.h"
 
+typedef enum {
+    DICA_PAR,
+    DICA_IMPAR,
+    DICA_PRIMO,
+    DICA_MULT5,
+    DICA_MULT3,
+    DICA_MULT10,
+    DICA_MULT25,
+    DICA_QUADRADO,
+    DICA_SOMA_DIGITOS
+} TipoDica;
+
+static int ehPrimo(int n) {
+    if (n <= 1) {
+        return 0;
+    }
+    if (n % 2 == 0) {
+        return n == 2;
+    }
+    for (int i = 3; i * i <= n; i += 2) {
+        if (n % i == 0) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+static int ehQuadradoPerfeito(int n) {
+    for (int i = 1; i * i <= n; i++) {
+        if (i * i == n) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+static int somaDigitos(int n) {
+    int sum = 0;
+    while (n > 0) {
+        sum += n % 10;
+        n /= 10;
+    }
+    return sum;
+}
+
+static int dicaCombina(TipoDica dica, int secreto) {
+    switch (dica) {
+        case DICA_PAR:
+            return (secreto % 2) == 0;
+        case DICA_IMPAR:
+            return (secreto % 2) != 0;
+        case DICA_PRIMO:
+            return ehPrimo(secreto);
+        case DICA_MULT5:
+            return (secreto % 5) == 0;
+        case DICA_MULT3:
+            return (secreto % 3) == 0;
+        case DICA_MULT10:
+            return (secreto % 10) == 0;
+        case DICA_MULT25:
+            return (secreto % 25) == 0;
+        case DICA_QUADRADO:
+            return ehQuadradoPerfeito(secreto);
+        case DICA_SOMA_DIGITOS:
+            return 1;
+        default:
+            return 0;
+    }
+}
+
+static void gerarDica(int idCaso, int secreto, char *saida, size_t tamanho) {
+    TipoDica dicas[10];
+    int qtdDicas = 0;
+    int dicasValidas[10];
+    int qtdValidas = 0;
+
+    if (idCaso == 1) {
+        dicas[qtdDicas++] = DICA_PAR;
+        dicas[qtdDicas++] = DICA_IMPAR;
+        dicas[qtdDicas++] = DICA_PRIMO;
+        dicas[qtdDicas++] = DICA_MULT5;
+        dicas[qtdDicas++] = DICA_MULT3;
+        dicas[qtdDicas++] = DICA_QUADRADO;
+        dicas[qtdDicas++] = DICA_SOMA_DIGITOS;
+    } else if (idCaso == 2) {
+        dicas[qtdDicas++] = DICA_PAR;
+        dicas[qtdDicas++] = DICA_IMPAR;
+        dicas[qtdDicas++] = DICA_PRIMO;
+        dicas[qtdDicas++] = DICA_MULT5;
+        dicas[qtdDicas++] = DICA_MULT10;
+        dicas[qtdDicas++] = DICA_QUADRADO;
+        dicas[qtdDicas++] = DICA_SOMA_DIGITOS;
+    } else {
+        dicas[qtdDicas++] = DICA_PAR;
+        dicas[qtdDicas++] = DICA_IMPAR;
+        dicas[qtdDicas++] = DICA_PRIMO;
+        dicas[qtdDicas++] = DICA_MULT10;
+        dicas[qtdDicas++] = DICA_MULT25;
+        dicas[qtdDicas++] = DICA_QUADRADO;
+        dicas[qtdDicas++] = DICA_SOMA_DIGITOS;
+    }
+
+    for (int i = 0; i < qtdDicas; i++) {
+        if (dicaCombina(dicas[i], secreto)) {
+            dicasValidas[qtdValidas++] = dicas[i];
+        }
+    }
+
+    if (qtdValidas == 0) {
+        snprintf(saida, tamanho, "DICA DO PERITO: Sem pistas confiaveis no momento.");
+        return;
+    }
+
+    TipoDica escolhida = (TipoDica)dicasValidas[rand() % qtdValidas];
+
+    if (idCaso == 1) {
+        switch (escolhida) {
+            case DICA_PAR:
+                snprintf(saida, tamanho, "PERITO: Ajustei os oculos termicos... A assinatura se divide em dois grupos exatos. E um numero PAR.");
+                break;
+            case DICA_IMPAR:
+                snprintf(saida, tamanho, "PERITO: O laudo indica algo incomum na digital: o peso nos botoes nao se divide em grupos iguais. E um numero IMPAR.");
+                break;
+            case DICA_PRIMO:
+                snprintf(saida, tamanho, "PERITO: Dado do laboratorio: a pressao no botao e solitaria. O codigo so e divisivel por ele mesmo e por 1. Temos um numero PRIMO.");
+                break;
+            case DICA_MULT5:
+                snprintf(saida, tamanho, "PERITO: O fotografo forense anotou um padrao: as marcas de calor do Alinho saltam de cinco em cinco no teclado.");
+                break;
+            case DICA_MULT3:
+                snprintf(saida, tamanho, "PERITO: O laudo indica: as manchas formam um triangulo, a matematica do codigo se divide perfeitamente em tres setores da cena.");
+                break;
+            case DICA_QUADRADO:
+                snprintf(saida, tamanho, "PERITO: Analise geometrica do impacto: o calor nos botoes forma um padrao de quadrado perfeito matematico.");
+                break;
+            case DICA_SOMA_DIGITOS:
+                snprintf(saida, tamanho, "PERITO: Calculei em voz alta aqui no laboratorio: a soma dos algarismos desse codigo da exatamente %d.", somaDigitos(secreto));
+                break;
+            default:
+                snprintf(saida, tamanho, "DICA DO PERITO: Sem pistas confiaveis no momento.");
+                break;
+        }
+    } else if (idCaso == 2) {
+        switch (escolhida) {
+            case DICA_PAR:
+                snprintf(saida, tamanho, "PERITO: O sinal do radio do mopretu aparece no osciloscopio em pares simetricos. E uma frequencia PAR.");
+                break;
+            case DICA_IMPAR:
+                snprintf(saida, tamanho, "PERITO: O sinal nao forma pares na antena. A onda opera numa frequencia IMPAR.");
+                break;
+            case DICA_PRIMO:
+                snprintf(saida, tamanho, "PERITO: Dado incomum na analise espectral: a onda de transmissao e um numero primo. O sinal nao se divide, nao sofre interferencia.");
+                break;
+            case DICA_MULT5:
+                snprintf(saida, tamanho, "PERITO: Os picos de radio saltam em blocos de 5 MHz ao longo do espectro. Padrao identificado.");
+                break;
+            case DICA_MULT10:
+                snprintf(saida, tamanho, "PERITO: Sinal limpo demais para ser coincidencia: a frequencia de fuga deles fecha em grupos exatos de dez.");
+                break;
+            case DICA_QUADRADO:
+                snprintf(saida, tamanho, "PERITO: Padrao de onda detectado no software: a distribuicao da frequencia forma um quadrado perfeito matematico.");
+                break;
+            case DICA_SOMA_DIGITOS:
+                snprintf(saida, tamanho, "PERITO: Analise concluida. A soma dos digitos dessa frequencia do mopretu e %d.", somaDigitos(secreto));
+                break;
+            default:
+                snprintf(saida, tamanho, "DICA DO PERITO: Sem pistas confiaveis no momento.");
+                break;
+        }
+    } else {
+        switch (escolhida) {
+            case DICA_PAR:
+                snprintf(saida, tamanho, "PERITO: Tracei a rota do virus nos logs: o trafego de rede se divide em dois trechos exatamente iguais. A porta e PAR.");
+                break;
+            case DICA_IMPAR:
+                snprintf(saida, tamanho, "PERITO: A trilha de dados nao e simetrica - o protocolo de rede esta operando em um numero IMPAR.");
+                break;
+            case DICA_PRIMO:
+                snprintf(saida, tamanho, "PERITO: Detalhe tecnico identificado na criptografia do CH do Pina: o endereco da porta e um numero primo. Indivisivel e letal.");
+                break;
+            case DICA_MULT10:
+                snprintf(saida, tamanho, "PERITO: Confirmado nos logs do data center: os pacotes maliciosos pulam em multiplos exatos de dez.");
+                break;
+            case DICA_MULT25:
+                snprintf(saida, tamanho, "PERITO: Rastreio preciso concluido: o trafego do virus se encaixa perfeitamente nos blocos de 25 portas do servidor.");
+                break;
+            case DICA_QUADRADO:
+                snprintf(saida, tamanho, "PERITO: Curiosidade encontrada no codigo-fonte: o numero da porta infectada pelo CH e um quadrado perfeito.");
+                break;
+            case DICA_SOMA_DIGITOS:
+                snprintf(saida, tamanho, "PERITO: Anotado no terminal seguro: a soma dos algarismos dessa maldita porta e %d.", somaDigitos(secreto));
+                break;
+            default:
+                snprintf(saida, tamanho, "DICA DO PERITO: Sem pistas confiaveis no momento.");
+                break;
+        }
+    }
+}
+
 static void exibirRelatorio(int idCaso) {
     limparTela();
     printf("\n");
@@ -89,6 +288,8 @@ void jogarPartida(int idCaso) {
     
     int maxVal = (idCaso == 1) ? 50 : (idCaso == 2) ? 100 : 200;
     int maxTentativas = (idCaso == 1) ? 7 : (idCaso == 2) ? 6 : 5;
+    int maxDicas = (idCaso == 1) ? -1 : (idCaso == 2) ? 4 : 2;
+    int dicasUsadas = 0;
     
     int secreto = 1 + (rand() % maxVal);
     int tentativas = maxTentativas;
@@ -130,10 +331,13 @@ void jogarPartida(int idCaso) {
         palpite = lerOpcao(0, maxVal);
 
         if (palpite == 0) {
-            if (secreto % 2 == 0) {
-                strcpy(feedback, "DICA DO PERITO: O alvo e um numero PAR.");
+            if (maxDicas != -1 && dicasUsadas >= maxDicas) {
+                strcpy(feedback, "DICA DO PERITO: Limite de dicas atingido.");
             } else {
-                strcpy(feedback, "DICA DO PERITO: O alvo e um numero IMPAR.");
+                gerarDica(idCaso, secreto, feedback, sizeof(feedback));
+                if (maxDicas != -1) {
+                    dicasUsadas++;
+                }
             }
             continue;
         }
