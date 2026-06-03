@@ -146,10 +146,10 @@ const ASSET_LINKS = [
 ];
 
 const spriteSources = {
-  idle: ["/assets/detetive.png"],
-  thinking: ["./assets/detective-thinking.png"],
-  success: ["./assets/detective-success.png"],
-  warning: ["./assets/detective-warning.png"]
+  idle: ["./assets/detetive.png", "/assets/detetive.png"],
+  thinking: ["./assets/detective-thinking.png", "./assets/detetive.png"],
+  success: ["./assets/detective-success.png", "./assets/detetive.png"],
+  warning: ["./assets/detective-warning.png", "./assets/detetive.png"]
 };
 
 const loadedSprites = {};
@@ -1183,14 +1183,19 @@ function syncDetectiveImage() {
   const image = document.querySelector("#detectiveImage");
   if (!image) return;
 
+  const sprite = image.closest(".detective-sprite");
   const src = loadedSprites[state.mood] || loadedSprites.idle;
   if (!src) {
     image.hidden = true;
+    sprite?.removeAttribute("data-sprite-ready");
     return;
   }
 
-  image.src = src;
+  if (image.getAttribute("src") !== src) {
+    image.src = src;
+  }
   image.hidden = false;
+  sprite?.setAttribute("data-sprite-ready", "true");
 }
 
 function refreshIcons() {

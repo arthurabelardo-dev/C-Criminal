@@ -197,6 +197,7 @@ input:disabled {
     linear-gradient(110deg, rgba(224, 189, 107, 0.24), transparent 42%),
     repeating-linear-gradient(90deg, transparent 0 24px, rgba(255, 255, 255, 0.02) 25px);
   opacity: 0.7;
+  animation: evidence-sweep 7s ease-in-out infinite;
 }
 
 .detective-sprite::after {
@@ -216,6 +217,18 @@ input:disabled {
   max-height: 228px;
   object-fit: contain;
   padding: 10px;
+  image-rendering: pixelated;
+  filter:
+    drop-shadow(0 18px 18px rgba(0, 0, 0, 0.68))
+    drop-shadow(0 0 14px rgba(224, 189, 107, 0.1));
+  transform-origin: 50% 88%;
+  animation: detective-idle 8.5s ease-in-out infinite;
+  will-change: transform, filter;
+}
+
+.detective-sprite img:not([hidden]) + .detective-fallback,
+.detective-sprite[data-sprite-ready="true"] .detective-fallback {
+  display: none;
 }
 
 .detective-fallback {
@@ -268,12 +281,133 @@ input:disabled {
   border-color: rgba(123, 201, 189, 0.5);
 }
 
+.detective-sprite[data-mood="thinking"] img {
+  animation: detective-thinking 3.8s ease-in-out infinite;
+  filter:
+    drop-shadow(0 18px 18px rgba(0, 0, 0, 0.68))
+    drop-shadow(0 0 18px rgba(123, 201, 189, 0.24));
+}
+
 .detective-sprite[data-mood="success"] {
   border-color: rgba(145, 184, 121, 0.72);
 }
 
+.detective-sprite[data-mood="success"] img {
+  animation: detective-success 3s ease-out infinite;
+  filter:
+    drop-shadow(0 18px 18px rgba(0, 0, 0, 0.68))
+    drop-shadow(0 0 20px rgba(145, 184, 121, 0.24));
+}
+
 .detective-sprite[data-mood="warning"] {
   border-color: rgba(184, 75, 67, 0.78);
+}
+
+.detective-sprite[data-mood="warning"] img {
+  animation: detective-warning 2.2s ease-in-out infinite;
+  filter:
+    drop-shadow(0 18px 18px rgba(0, 0, 0, 0.68))
+    drop-shadow(0 0 20px rgba(184, 75, 67, 0.25));
+}
+
+@keyframes evidence-sweep {
+  0%,
+  100% {
+    opacity: 0.52;
+    transform: translateX(-8px);
+  }
+  50% {
+    opacity: 0.82;
+    transform: translateX(8px);
+  }
+}
+
+@keyframes detective-idle {
+  0%,
+  16%,
+  100% {
+    transform: translate3d(0, 0, 0) scaleX(1) rotate(0deg);
+  }
+  22% {
+    transform: translate3d(1px, -3px, 0) scaleX(1) rotate(-1deg);
+  }
+  31% {
+    transform: translate3d(-1px, 0, 0) scaleX(1) rotate(0.7deg);
+  }
+  56%,
+  65% {
+    transform: translate3d(0, 0, 0) scaleX(-1) rotate(0deg);
+  }
+  61% {
+    transform: translate3d(2px, -2px, 0) scaleX(-1) rotate(-1deg);
+  }
+  71% {
+    transform: translate3d(0, 0, 0) scaleX(1) rotate(0deg);
+  }
+}
+
+@keyframes detective-thinking {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scaleX(1) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(0, -5px, 0) scaleX(1) rotate(-1.2deg);
+  }
+  48%,
+  62% {
+    transform: translate3d(0, -1px, 0) scaleX(-1) rotate(0deg);
+  }
+  76% {
+    transform: translate3d(1px, -3px, 0) scaleX(-1) rotate(1deg);
+  }
+  88% {
+    transform: translate3d(0, 0, 0) scaleX(1) rotate(0deg);
+  }
+}
+
+@keyframes detective-success {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scaleX(1) rotate(0deg);
+  }
+  18% {
+    transform: translate3d(0, -7px, 0) scaleX(1) rotate(-1deg);
+  }
+  30% {
+    transform: translate3d(0, 1px, 0) scaleX(1) rotate(0.5deg);
+  }
+  70% {
+    transform: translate3d(0, 0, 0) scaleX(-1) rotate(0deg);
+  }
+  80% {
+    transform: translate3d(0, -4px, 0) scaleX(-1) rotate(1deg);
+  }
+  90% {
+    transform: translate3d(0, 0, 0) scaleX(1) rotate(0deg);
+  }
+}
+
+@keyframes detective-warning {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scaleX(1) rotate(0deg);
+  }
+  18% {
+    transform: translate3d(-4px, 0, 0) scaleX(1) rotate(-1deg);
+  }
+  34% {
+    transform: translate3d(4px, -1px, 0) scaleX(1) rotate(1deg);
+  }
+  52% {
+    transform: translate3d(-2px, 0, 0) scaleX(-1) rotate(-0.5deg);
+  }
+  66% {
+    transform: translate3d(2px, -1px, 0) scaleX(-1) rotate(0.8deg);
+  }
+  82% {
+    transform: translate3d(0, 0, 0) scaleX(1) rotate(0deg);
+  }
 }
 
 @keyframes pulse {
@@ -920,5 +1054,14 @@ input:disabled {
   .evidence-tape {
     font-size: 0.75rem;
     text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detective-sprite::before,
+  .detective-sprite img,
+  .detective-fallback,
+  .loader {
+    animation: none !important;
   }
 }

@@ -42,14 +42,13 @@ O caminho ideal e extrair de `src/jogo.c` e `src/historico.c` funcoes que retorn
 
 ## Sprites PNG
 
-Coloque arquivos opcionais nesta estrutura para substituir o detetive desenhado em CSS:
+O painel usa `frontend/assets/detetive.png` como sprite padrao no lugar do detetive desenhado em CSS. Tambem aceita arquivos opcionais por humor:
 
-- `frontend/assets/detective-idle.png`
 - `frontend/assets/detective-thinking.png`
 - `frontend/assets/detective-success.png`
 - `frontend/assets/detective-warning.png`
 
-Tambem e possivel sobrescrever via JavaScript:
+Se um arquivo de humor nao existir, a interface reaproveita `frontend/assets/detetive.png`. Tambem e possivel sobrescrever via JavaScript:
 
 ```js
 window.CCriminalAssets.preloadPngAssets({
