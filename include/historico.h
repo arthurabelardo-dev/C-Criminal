@@ -2,10 +2,16 @@
 #define HISTORICO_H
 
 typedef struct {
+    int  casoId;
     char casoNome[50];
     char dificuldade[10];
     int  secreto;
+    char resultado[16];
     int  tentativasUsadas;
+    int  pistasAntesChute;
+    int  momentoChute;
+    int  recompensa;
+    long timestamp;
     int  venceu;
 } Sessao;
 

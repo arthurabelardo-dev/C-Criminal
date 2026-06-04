@@ -11,6 +11,29 @@ static void limparQuebra(char *texto) {
     texto[strcspn(texto, "\r\n")] = '\0';
 }
 
+static int lerComandoMenu(void) {
+    char linha[80];
+
+    while (1) {
+        if (fgets(linha, sizeof(linha), stdin) == NULL) {
+            clearerr(stdin);
+            continue;
+        }
+        limparQuebra(linha);
+
+        if (strcmp(linha, "historico") == 0) {
+            return 4;
+        }
+        for (int i = 1; i <= 6; i++) {
+            if (linha[0] == (char)('0' + i) && linha[1] == '\0') {
+                return i;
+            }
+        }
+
+        printf(VERMELHO "  Entrada invalida. Digite 1 a 6 ou historico: " RESET);
+    }
+}
+
 static int telaLogin(void) {
     const char *usuarioValido = "detetive";
     const char *senhaValida = "1234";
@@ -89,6 +112,7 @@ static void exibirMenu(void) {
     uiMenuItem(5, "Loja", "Itens estrategicos", "PRE-CASO", UI_MAGENTA);
     uiMenuItem(6, "Sair", "Encerrar terminal", "OFFLINE", UI_DIM);
     uiBoxBottom();
+    printf("  %sComando rapido:%s historico\n", UI_DIM, UI_RESET);
     uiPrompt("COMANDO");
 }
 
@@ -104,7 +128,7 @@ int main(void) {
 
     do {
         exibirMenu();
-        opcao = lerOpcao(1, 6);
+        opcao = lerComandoMenu();
 
         switch (opcao) {
             case 1:
