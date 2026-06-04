@@ -1252,6 +1252,8 @@ void jogarPartida(int idCaso) {
     char feedback[MAX_FEEDBACK] = "Central online. Cruze pistas e depoimentos antes de arriscar.";
     int reputacaoAtual = getScore();
     int deltaReputacao = 0;
+    int pistasAntesChute = -1;
+    int momentoChute = 0;
     ItensAtivosCaso itens;
     Sessao s;
 
@@ -1271,7 +1273,13 @@ void jogarPartida(int idCaso) {
     s.casoNome[sizeof(s.casoNome) - 1] = '\0';
     strncpy(s.dificuldade, caso->dificuldade, sizeof(s.dificuldade) - 1);
     s.dificuldade[sizeof(s.dificuldade) - 1] = '\0';
+    s.casoId = caso->id;
     s.secreto = secreto;
+    s.resultado[0] = '\0';
+    s.pistasAntesChute = -1;
+    s.momentoChute = 0;
+    s.recompensa = 0;
+    s.timestamp = 0;
     s.venceu = 0;
 
     selecionarPistasAleatorias(caso->id, caso->maxPistas, pistasSorteadas);
@@ -1480,6 +1488,11 @@ void jogarPartida(int idCaso) {
             continue;
         }
 
+        if (pistasAntesChute < 0) {
+            pistasAntesChute = pistasUsadas;
+            momentoChute = contPalpites + 1;
+        }
+
         if (contPalpites < MAX_REGISTROS) {
             registros[contPalpites].valor = palpite;
             strncpy(registros[contPalpites].leitura,
@@ -1560,6 +1573,13 @@ void jogarPartida(int idCaso) {
     int recompensa = calcularRecompensaMoedas(caso, s.venceu, pistasUsadas, &multiplicadorPct);
     int saldoDepois;
 
+    strncpy(s.resultado, s.venceu ? "RESOLVIDO" : "FALHOU", sizeof(s.resultado) - 1);
+    s.resultado[sizeof(s.resultado) - 1] = '\0';
+    s.pistasAntesChute = pistasAntesChute;
+    s.momentoChute = momentoChute;
+    s.recompensa = recompensa;
+    s.timestamp = (long)time(NULL);
+
     printf("\n");
     uiBanner("RESULTADO DA INVESTIGACAO", caso->nome);
     uiStamp("RELATORIO FINAL", s.venceu ? "CASO RESOLVIDO" : "ARQUIVO FRIO",
@@ -1580,6 +1600,18 @@ void jogarPartida(int idCaso) {
     uiBoxMid("Tentativas", valor, UI_WHITE);
     snprintf(valor, sizeof(valor), "%d", pistasUsadas);
     uiBoxMid("Pistas usadas", valor, pistasUsadas > 0 ? UI_YELLOW : UI_GREEN);
+    if (pistasAntesChute >= 0) {
+        snprintf(valor, sizeof(valor), "%d", pistasAntesChute);
+    } else {
+        snprintf(valor, sizeof(valor), "-");
+    }
+    uiBoxMid("Pistas antes chute", valor, pistasAntesChute >= 2 ? UI_YELLOW : UI_GREEN);
+    if (momentoChute > 0) {
+        snprintf(valor, sizeof(valor), "%da tentativa", momentoChute);
+    } else {
+        snprintf(valor, sizeof(valor), "-");
+    }
+    uiBoxMid("Momento do chute", valor, momentoChute <= 1 ? UI_GREEN : UI_MAGENTA);
     snprintf(valor, sizeof(valor), "x%d", multiplicadorPct);
     uiBoxMid("Risco vs recompensa", valor,
              multiplicadorPct > 125 ? UI_GREEN : (multiplicadorPct > 100 ? UI_YELLOW : UI_RED));
