@@ -147,7 +147,7 @@ A Sprint 02 teve foco na expansão da experiência do jogador, adicionando mecâ
 |:---|:---:|
 | Arthur Abelardo + Danilo Diniz | Desenvolvimento e testes do card de implementação da loja de itens |
 
-
+<img src="./assets/imagens/WhatsApp Image 2026-06-04 at 21.15.48.jpeg" alt="Evidencia programação em pares" width="800">
 ---
 
 ## Testes de Sistema
