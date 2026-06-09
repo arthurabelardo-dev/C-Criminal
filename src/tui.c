@@ -85,18 +85,6 @@ void uiSleepMs(int ms) {
 #endif
 }
 
-void uiTypeLine(const char *text, int msPerChar) {
-    const char *p = text;
-
-    while (*p != '\0') {
-        putchar(*p);
-        fflush(stdout);
-        uiSleepMs(msPerChar);
-        p++;
-    }
-    putchar('\n');
-}
-
 void uiRule(const char *color) {
     printf("  %s========================================================================%s\n", color ? color : "", UI_RESET);
 }
