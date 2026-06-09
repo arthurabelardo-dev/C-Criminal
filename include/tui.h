@@ -7,18 +7,14 @@
 #define UI_RED        "\033[1;31m"
 #define UI_GREEN      "\033[1;32m"
 #define UI_YELLOW     "\033[1;33m"
-#define UI_BLUE       "\033[1;34m"
 #define UI_MAGENTA    "\033[1;35m"
 #define UI_CYAN       "\033[1;36m"
 #define UI_WHITE      "\033[1;37m"
-#define UI_BG_BLUE    "\033[44m"
-#define UI_BG_RED     "\033[41m"
 
 void uiInit(void);
 void uiClear(void);
 void uiPause(const char *message);
 void uiSleepMs(int ms);
-void uiTypeLine(const char *text, int msPerChar);
 void uiRule(const char *color);
 void uiSection(const char *title, const char *color);
 void uiStamp(const char *left, const char *right, const char *color);
