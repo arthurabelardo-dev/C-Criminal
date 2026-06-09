@@ -7,26 +7,26 @@
 #include "historico.h"
 #include "tui.h"
 
-static void limparQuebra(char *texto) {
+static void removerQuebraLinha(char *texto) {
     texto[strcspn(texto, "\r\n")] = '\0';
 }
 
-static int lerComandoMenu(void) {
-    char linha[80];
+static int lerOpcaoMenuPrincipal(void) {
+    char comando[80];
 
     while (1) {
-        if (fgets(linha, sizeof(linha), stdin) == NULL) {
+        if (fgets(comando, sizeof(comando), stdin) == NULL) {
             clearerr(stdin);
             continue;
         }
-        limparQuebra(linha);
+        removerQuebraLinha(comando);
 
-        if (strcmp(linha, "historico") == 0) {
+        if (strcmp(comando, "historico") == 0) {
             return 4;
         }
-        for (int i = 1; i <= 6; i++) {
-            if (linha[0] == (char)('0' + i) && linha[1] == '\0') {
-                return i;
+        for (int opcao = 1; opcao <= 6; opcao++) {
+            if (comando[0] == (char)('0' + opcao) && comando[1] == '\0') {
+                return opcao;
             }
         }
 
@@ -34,9 +34,9 @@ static int lerComandoMenu(void) {
     }
 }
 
-static int telaLogin(void) {
-    const char *usuarioValido = "detetive";
-    const char *senhaValida = "1234";
+static int autenticarUsuario(void) {
+    const char *usuarioEsperado = "detetive";
+    const char *senhaEsperada = "1234";
     int tentativas = 3;
 
     while (tentativas > 0) {
@@ -61,20 +61,20 @@ static int telaLogin(void) {
             clearerr(stdin);
             continue;
         }
-        limparQuebra(usuario);
+        removerQuebraLinha(usuario);
 
         uiPrompt("SENHA");
         if (fgets(senha, sizeof(senha), stdin) == NULL) {
             clearerr(stdin);
             continue;
         }
-        limparQuebra(senha);
+        removerQuebraLinha(senha);
 
         printf("\n");
         uiLoading("Validando credencial", 18, 20);
         uiLoading("Sincronizando banco de evidencias", 18, 16);
 
-        if (strcmp(usuario, usuarioValido) == 0 && strcmp(senha, senhaValida) == 0) {
+        if (strcmp(usuario, usuarioEsperado) == 0 && strcmp(senha, senhaEsperada) == 0) {
             uiAlert("ACESSO", "Credencial liberada. Boa cacada, Detetive.", UI_GREEN);
             uiPause("Pressione ENTER para continuar...");
             return 1;
@@ -95,7 +95,7 @@ static int telaLogin(void) {
     return 0;
 }
 
-static void exibirMenu(void) {
+static void exibirMenuPrincipal(void) {
     limparTela();
     printf("\n");
     uiLogo();
@@ -116,35 +116,31 @@ static void exibirMenu(void) {
     uiPrompt("COMANDO");
 }
 
+static void iniciarCaso(int idCaso) {
+    if (confirmarCaso(idCaso)) {
+        jogarPartida(idCaso);
+    }
+}
+
 int main(void) {
     int opcao;
 
     uiInit();
     srand((unsigned int)time(NULL));
 
-    if (!telaLogin()) {
+    if (!autenticarUsuario()) {
         return 1;
     }
 
     do {
-        exibirMenu();
-        opcao = lerComandoMenu();
+        exibirMenuPrincipal();
+        opcao = lerOpcaoMenuPrincipal();
 
         switch (opcao) {
             case 1:
-                if (confirmarCaso(1)) {
-                    jogarPartida(1);
-                }
-                break;
             case 2:
-                if (confirmarCaso(2)) {
-                    jogarPartida(2);
-                }
-                break;
             case 3:
-                if (confirmarCaso(3)) {
-                    jogarPartida(3);
-                }
+                iniciarCaso(opcao);
                 break;
             case 4:
                 exibirHistorico();
