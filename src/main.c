@@ -34,6 +34,14 @@ static int lerOpcaoMenuPrincipal(void) {
     }
 }
 
+/*
+ * lerOpcaoMenuPrincipal:
+ * - Lê uma entrada livre do usuário no menu principal. Aceita os dígitos '1'..'6'
+ *   ou o comando textual "historico" para acesso rápido.
+ * - Faz uma validação simples do formato da string lida e repete até receber
+ *   um comando válido.
+ */
+
 static int autenticarUsuario(void) {
     const char *usuarioEsperado = "detetive";
     const char *senhaEsperada = "1234";
@@ -95,6 +103,13 @@ static int autenticarUsuario(void) {
     return 0;
 }
 
+/*
+ * autenticarUsuario:
+ * - Fluxo simples de autenticação local com três tentativas.
+ * - Mostra banners e mensagens de UI e bloqueia o acesso após esgotar
+ *   as tentativas, para simular um mecanismo basico de segurança.
+ */
+
 static void exibirMenuPrincipal(void) {
     limparTela();
     printf("\n");
@@ -123,6 +138,12 @@ static void iniciarCaso(int idCaso) {
 }
 
 int main(void) {
+    /*
+     * main: inicializa a UI, semente do RNG e autentica o usuario.
+     * - Se autenticacao bem-sucedida, exibe o menu principal em loop até
+     *   o jogador optar por sair (opcao 6). As acoes redirecionam para
+     *   funcoes responsaveis por cada fluxo (caso, historico, loja).
+     */
     int opcao;
 
     uiInit();

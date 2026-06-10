@@ -554,6 +554,16 @@ static void selecionarPistasAleatorias(int idCaso, int quantidade, int seleciona
     }
 }
 
+/*
+ *selecionarPistasAleatorias:
+ * - Gera uma ordem aleatoria (Fisher-Yates shuffle) sobre o pool de pistas
+ *   do caso e preenche o vetor `selecionadas` com os indices das pistas que
+ *   serao ativas nesta partida.
+ * - Mantem `MAX_PISTAS_TOTAL` entradas; entradas nao usadas recebem -1.
+ * - A aleatoriedade garante variedade entre partidas enquanto preserva
+ *   a coerencia do tema por indice para fins de bonus e verificacoes.
+ */
+
 static void prepararPistasAtivas(int reputacao, int totalPistas, int pistasRuido[MAX_PISTAS_TOTAL],
                                  int pistasFalsas[MAX_PISTAS_TOTAL]) {
     (void)reputacao;
@@ -563,6 +573,17 @@ static void prepararPistasAtivas(int reputacao, int totalPistas, int pistasRuido
     }
     (void)totalPistas;
 }
+
+/*
+ * prepararPistasAtivas:
+ * - Inicializa metadados das pistas ativas:
+ *   - `pistasRuido` recebe um valor [0..99] que pode ser usado para decidir
+ *     se a pista eh falsa com base na reputacao do jogador.
+ *   - `pistasFalsas` eh inicializado aqui, e poderá ser ajustado posteriormente
+ *     por efeitos como scanner forense ou debuffs.
+ * - Atualmente a funcao ignora `reputacao` e `totalPistas` no corpo (marcada
+ *   com (void)) para facilitar extensoes futuras.
+ */
 
 static int removerUmaPistaFalsaAtiva(int maxPistas, int pistasFalsas[MAX_PISTAS_TOTAL]) {
     for (int i = 0; i < maxPistas && i < MAX_PISTAS_TOTAL; i++) {
@@ -738,6 +759,20 @@ static int registrarPistaEVerificarBonus(const CasoInfo *caso, int reputacao, in
                                  debuffQualidadeRestantes, debuffMentirosoAtivo, debuffMentirosoRestantes);
     return 1;
 }
+
+/*
+ * registrarPistaEVerificarBonus:
+ * - Chamado apos coleta de uma nova pista para verificar se uma pista bonus
+ *   pode ser liberada automaticamente. A condicao principal eh ter uma
+ *   sequencia coerente de pistas do mesmo tema (>=3) e nao ter liberado um
+ *   bonus anteriormente nesta partida.
+ * - Quando um bonus e liberado, a funcao:
+ *   - seleciona uma nova pista coerente (tema igual ao anterior), atualiza
+ *     os arrays de estado (`pistasSelecionadas`, `pistasRuido`, `pistasFalsas`),
+ *   - gera o feedback textual chamando `aplicarPista` e grava a pista em
+ *     `pistasRegistradas`.
+ * - Tambem consome buffs/debuffs relacionados a precisao e qualidade.
+ */
 
 static void prepararItensAtivosCaso(ItensAtivosCaso *itens, int confiancaAtual) {
     int opcao;
@@ -1089,6 +1124,18 @@ static void aplicarPista(char *feedback, size_t tamanho, const CasoInfo *caso, i
     }
 }
 
+/*
+ * aplicarPista:
+ * - Responsavel por formatar a mensagem de retorno ao jogador ao solicitar
+ *   uma pista tecnica. A funcao recupera a `PistaInfo` correspondente e
+ *   determina se a dica deve indicar a propriedade verdadeira ou falsa do
+ *   segredo.
+ * - Parametros como `pistasFalsas`, `pistasRuido`, `ajusteConfiabilidade` e
+ *   flags de forcar sao atualmente ignorados na versao basica, mas estao
+ *   presentes para permitir logica de confiabilidade/mentira futura.
+ * - A saida e escrita em `feedback` com tamanho `tamanho`.
+ */
+
 static void exibirArquivoEvidencias(const CasoInfo *caso, int pistasUsadas,
                                       char pistasRegistradas[MAX_PISTAS_TOTAL][MAX_FEEDBACK],
                                       char depoimentos[MAX_CONSULTAS][MAX_FEEDBACK],
@@ -1181,6 +1228,15 @@ static void consultarInterrogado(char *feedback, size_t tamanho, const CasoInfo 
     }
 }
 
+/*
+ * consultarInterrogado:
+ * - Exibe a lista de suspeitos e coleta um depoimento.
+ * - O resultado pode ser verdadeiro ou mentiroso, com probabilidade
+ *   definida por `chanceMentiraPorReputacao(reputacao)`. Em caso de mentira,
+ *   a afirmacao eh invertida intencionalmente.
+ * - Depoimentos sao registrados em `depoimentos` ate o limite de consultas.
+ */
+
 int confirmarCaso(int idCaso) {
     const CasoInfo *caso = obterCaso(idCaso);
     char valor[40];
@@ -1215,6 +1271,18 @@ int confirmarCaso(int idCaso) {
 }
 
 void jogarPartida(int idCaso) {
+    /*
+     * jogarPartida: loop principal da investigacao
+     * - Configura o caso (seleciona pistas, inicializa buffers, aplica itens).
+     * - Fornece um loop interativo onde o jogador pode:
+     *   - Tentar um palpite numerico
+     *   - Pedir pista tecnica (0)
+     *   - Interrogar suspeitos (-1)
+     *   - Rever evidencias (-2) e dossie (-3)
+     * - Gerencia efeitos temporarios (buffs/debuffs), penalidades por ritmo
+     *   de entrada rapido e desbloqueio de pista bonus por coerencia de tema.
+     * - Ao final calcula recompensas, ajusta reputacao/confianca e salva sessao.
+     */
     const CasoInfo *caso = obterCaso(idCaso);
     int idxCaso = indiceCaso(idCaso);
     int pistasSorteadas[MAX_PISTAS_TOTAL];

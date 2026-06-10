@@ -93,6 +93,16 @@ static double raizQuadradaNewton(double valor) {
         return 0.0;
     }
 
+        /* Calcula a raiz quadrada usando o metodo de Newton-Raphson.
+             - Evita depender de funcoes externas (por exemplo sqrt) para manter
+                 portabilidade e controle do numero de iteracoes.
+             - Inicializa a aproximacao com `valor` (ou 1.0 quando valor < 1) e
+                 aplica um numero fixo de iteracoes (24) para garantir convergencia
+                 adequada para as escalas usadas no jogo.
+             - A cada iteracao: x <- 0.5 * (x + valor/x), que converge para sqrt(valor).
+             Observacao: a escolha de iteracoes aqui prioriza simplicidade e
+             previsibilidade sobre performance extrema.
+        */
     aproximacao = valor > 1.0 ? valor : 1.0;
     for (int i = 0; i < 24; i++) {
         aproximacao = 0.5 * (aproximacao + (valor / aproximacao));
@@ -112,6 +122,13 @@ static int lerSessao(FILE *f, Sessao *s) {
     }
     primeiraLinha[strcspn(primeiraLinha, "\n")] = '\0';
 
+     /* Os historicos recentes comecam com uma assinatura de formato (por exemplo
+         "HU09"). Isso permite detectar campos adicionais (como pistasAntesChute
+         e momentoChute) e manter compatibilidade retroativa.
+         Se a assinatura estiver ausente, interpretamos a sessao no formato
+         legado: a primeira linha ja e' o nome do caso e os campos novos recebem
+         valores neutros para nao quebrar a leitura de arquivos antigos.
+     */
     if (strcmp(primeiraLinha, "HU09") == 0 || strcmp(primeiraLinha, "HU08") == 0) {
         int formatoHu09 = strcmp(primeiraLinha, "HU09") == 0;
 
@@ -174,6 +191,8 @@ static int lerSessao(FILE *f, Sessao *s) {
         return 1;
     }
 
+    /* Se nao houver assinatura, a primeira linha ja era o nome do caso no
+       formato legado. Os campos novos recebem valores neutros. */
     strncpy(s->casoNome, primeiraLinha, sizeof(s->casoNome) - 1);
     s->casoNome[sizeof(s->casoNome) - 1] = '\0';
 
@@ -302,6 +321,13 @@ static int melhorFaixaPorTaxa(const int *totalFaixa, const int *vitoriasFaixa) {
             melhor = i;
             continue;
         }
+          /* Compara taxas sem usar ponto flutuante:
+              em vez de dividir e comparar floats, comparamos cruzado:
+              vitorias[i] * totalFaixa[melhor] > vitoriasFaixa[melhor] * totalFaixa[i]
+              Isso evita erros de arredondamento e e' mais eficiente em sistemas
+              onde operacoes em ponto flutuante podem ser custosas.
+              Em caso de empate na taxa, escolhemos a faixa com maior amostra.
+          */
         if (vitoriasFaixa[i] * totalFaixa[melhor] > vitoriasFaixa[melhor] * totalFaixa[i]) {
             melhor = i;
         } else if (vitoriasFaixa[i] * totalFaixa[melhor] == vitoriasFaixa[melhor] * totalFaixa[i] &&
@@ -379,6 +405,8 @@ static void carregarPerfil(void) {
         return;
     }
 
+    /* O perfil fica em cache para evitar reler o arquivo a cada consulta de
+       saldo, confianca ou inventario durante telas como a loja e o historico. */
     f = fopen("perfil.txt", "r");
     if (f == NULL) {
         saldoCache = 0;
@@ -679,6 +707,8 @@ void exibirHistorico(void) {
         int totalMetodo = 0;
         int temAnalise = 0;
 
+        /* Carrega todas as sessoes em um vetor dinamico porque o relatorio
+           precisa percorrer os dados varias vezes para estatisticas e destaques. */
         while (lerSessao(f, &s)) {
             if (total >= capacidade) {
                 int novaCapacidade = capacidade == 0 ? 16 : capacidade * 2;
@@ -714,6 +744,8 @@ void exibirHistorico(void) {
             long long somaQuadrados = somaQuadradosTentativasRec(sessoes, total);
             double variancia;
 
+            /* A variancia usa E[x^2] - media^2. O ajuste para zero evita que
+               pequenos erros de arredondamento gerem raiz de numero negativo. */
             mediaTentativas = (double)somaTentativas / total;
             variancia = ((double)somaQuadrados / total) - (mediaTentativas * mediaTentativas);
             if (variancia < 0.0) {
@@ -742,6 +774,8 @@ void exibirHistorico(void) {
                 }
             }
             for (int i = 0; i < total; i++) {
+                /* As metricas HU-09 medem o estilo de investigacao: quantas
+                   pistas o jogador juntou e em que tentativa decidiu chutar. */
                 if (sessoes[i].pistasAntesChute >= 0 && sessoes[i].momentoChute > 0) {
                     int faixa = faixaInvestigacao(sessoes[i].pistasAntesChute);
                     mediaPistasAntesChute += sessoes[i].pistasAntesChute;

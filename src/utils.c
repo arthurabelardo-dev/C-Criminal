@@ -21,6 +21,15 @@ int lerOpcao(int min, int max) {
 int lerInteiroIntervalo(int min, int max, const char *prompt) {
     char linha[80];
 
+    /*
+     * lerInteiroIntervalo:
+     * - Le uma linha da entrada e converte para inteiro de forma robusta usando
+     *   `strtol`. A validacao garante que:
+     *   - nao ocorreram under/overflow (`errno != ERANGE`),
+     *   - toda a linha (apos possivel espacos) foi consumida pelo numero,
+     *   - o valor esta dentro do intervalo [min,max] e dentro de limites de `int`.
+     * - Em caso de erro, exibe mensagem e repete a leitura.
+     */
     while (1) {
         char *fim = NULL;
         long valor;
