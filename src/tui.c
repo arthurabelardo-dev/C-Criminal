@@ -19,6 +19,14 @@
 
 #define UI_WIDTH 72
 
+/*
+ * printPadded:
+ * - Centraliza e preenche uma linha dentro da caixa de exibicao com largura
+ *   fixa (`UI_WIDTH`). Se o texto exceder o espaco util, ele eh truncado e
+ *   recebe reticencias para indicar corte.
+ * - Usa `UI_WIDTH - 4` para calcular o espaco disponivel, considerando
+ *   margens e bordas da caixa.
+ */
 static void printPadded(const char *text) {
     char visible[UI_WIDTH];
     int maxLen = UI_WIDTH - 4;
@@ -153,6 +161,13 @@ void uiBoxText(const char *text) {
     printPadded(text);
 }
 
+/*
+ * uiBoxWrap:
+ * - Implementa quebra de linhas por palavras dentro da largura da caixa.
+ * - Percorre o texto por palavras, acumulando em `line` ate atingir o
+ *   comprimento maximo (`maxLen`) e entao emite a linha com `printPadded`.
+ * - Evita quebrar palavras longas (cada palavra tem limite em `word[]`).
+ */
 void uiBoxWrap(const char *text, const char *color) {
     char line[UI_WIDTH];
     int lineLen = 0;
@@ -235,6 +250,13 @@ void uiMeter(const char *label, int value, int max, const char *color) {
     printf("] %d/%d%s\n", value, max, UI_RESET);
 }
 
+/*
+ * uiScanBar:
+ * - Desenha uma barra que posiciona um marcador 'X' proporcional ao valor
+ *   no intervalo [min,max]. A posicao e calculada como um mapeamento linear
+ *   para o espacamento disponivel (width - 1) para que min e max ocupem
+ *   extremidades diferentes.
+ */
 void uiScanBar(int value, int min, int max) {
     int width = 52;
     int position;
