@@ -163,6 +163,21 @@ Os testes foram realizados manualmente em múltiplos cenários para garantir est
 | Salvamento automático da sessão | ✅ |
 | Finalização completa da investigação | ✅ |
 
+### Teste com 100+ Sessões
+
+Para validar o volume de partidas registradas, foi criado um teste automatizado que gera um histórico com 120 sessões no mesmo formato usado pelo jogo (`HU09`) e valida a leitura desse arquivo pela função de contagem do histórico.
+
+Comando de execução:
+
+```bash
+make test-100-sessoes
+```
+
+Evidências geradas:
+
+* `evidencias/historico-120-sessoes.txt`
+* `evidencias/relatorio-100-sessoes.md`
+
 ---
 
 ## Screencast da Entrega 03

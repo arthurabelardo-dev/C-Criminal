@@ -26,6 +26,7 @@ typedef enum {
 } ItemLoja;
 
 void salvarSessao(Sessao s);
+int contarSessoesHistorico(const char *caminho);
 void exibirHistorico(void);
 void creditar(int valor);
 int debitar(int valor);

@@ -644,6 +644,28 @@ void salvarSessao(Sessao s) {
     }
 }
 
+int contarSessoesHistorico(const char *caminho) {
+    FILE *f;
+    Sessao s;
+    int total = 0;
+
+    if (caminho == NULL) {
+        return 0;
+    }
+
+    f = fopen(caminho, "r");
+    if (f == NULL) {
+        return 0;
+    }
+
+    while (lerSessao(f, &s)) {
+        total++;
+    }
+
+    fclose(f);
+    return total;
+}
+
 void exibirHistorico(void) {
     FILE *f = fopen("historico.txt", "r");
     int total = 0;
