@@ -19,6 +19,22 @@ Não construímos apenas um jogo, construímos um sistema com inteligência apli
 
 ---
 
+## Tecnologias Utilizadas
+
+O projeto utiliza tecnologias simples e portáveis, priorizando execução via terminal e recursos nativos da linguagem C:
+
+* **Linguagem C:** desenvolvimento da lógica principal, fluxo do jogo, validações, pontuação e análise de histórico.
+* **GCC:** compilação do projeto a partir dos arquivos-fonte em C.
+* **Makefile:** automação dos comandos de compilação, testes e limpeza dos executáveis.
+* **Terminal/Console:** ambiente principal de interação com o jogador.
+* **ANSI Escape Codes:** composição visual da interface textual, com cores, banners e alertas.
+* **Arquivos `.txt`:** persistência local de perfil, histórico, reputação, confiança e inventário.
+* **Git e GitHub:** versionamento do código, registro de issues e organização das entregas.
+* **Jira:** acompanhamento do backlog, tarefas e sprints.
+* **Figma:** prototipação e validação da experiência visual.
+
+---
+
 ## Os Casos (Dificuldades)
 
 O jogo possui três níveis de complexidade, cada um com sua própria história, cenário e consequências para a cidade:
@@ -147,7 +163,7 @@ A Sprint 02 teve foco na expansão da experiência do jogador, adicionando mecâ
 |:---|:---:|
 | Arthur Abelardo + Danilo Diniz | Desenvolvimento e testes do card de implementação da loja de itens |
 
-
+<img src="./assets/imagens/WhatsApp Image 2026-06-04 at 21.15.48.jpeg" alt="Evidencia programação em pares" width="800">
 ---
 
 ## Testes de Sistema
@@ -193,3 +209,48 @@ O sistema não requer dependências externas. Para compilar e rodar:
 1. Clone o repositório:
 ```bash
 git clone [https://github.com/arthurabelardo-dev/C-Criminal.git](https://github.com/arthurabelardo-dev/C-Criminal.git)
+```
+
+Comando direto recomendado para uso no terminal:
+```bash
+git clone https://github.com/arthurabelardo-dev/C-Criminal.git
+```
+
+2. Acesse a pasta do projeto:
+```bash
+cd C-Criminal
+```
+
+3. Compile o projeto:
+```bash
+make all
+```
+
+4. Execute o jogo:
+```bash
+./ccriminal
+```
+
+No Windows, caso o executável seja gerado com extensão `.exe`, execute:
+```bash
+./ccriminal.exe
+```
+
+5. Execute os testes automatizados:
+```bash
+make test
+```
+
+6. Caso queira remover os arquivos gerados pela compilação:
+```bash
+make clean
+```
+
+### Credenciais de Acesso
+
+Ao iniciar o sistema, utilize as credenciais padrão:
+
+```txt
+Usuário: detetive
+Senha: 1234
+```
